@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+Фермя дядюшки Джо/.idea/Фермя дядюшки Джо.iml
+*.xml
