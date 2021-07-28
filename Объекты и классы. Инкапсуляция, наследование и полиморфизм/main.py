@@ -60,7 +60,6 @@ class Reviewer(Mentor):
     def __str__(self):
         return 'Имя: {}\nФамилия: {}\n'.format(self.name, self.surname)
 
-
 class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
@@ -75,14 +74,12 @@ class Lecturer(Mentor):
             tc = total / count
         else:
             tc = 'оценок нет'
-
-        return 'Имя: {}\nФамилия: {}\nСредняя оценка за лекции {}'.format(self.name, self.surname,tc )
+        return 'Имя: {}\nФамилия: {}\nСредняя оценка за лекции {}'.format(self.name, self.surname, tc)
 
 def middle_grade(course, *args):
     total = 0
     count = 0
     msg = ''
-
     for arg in args:
         if isinstance(arg, Student):
             msg = 'Средний балл за домашнее задание по курсу {} составляет - {} баллов'
@@ -97,7 +94,6 @@ def middle_grade(course, *args):
         print(msg.format(course, total/count))
     return
 
-
 student1 = Student('Iosif', 'Dzhugashvily', 'm')
 student2 = Student('Vladimir', 'Ulianov', 'm')
 
@@ -111,7 +107,6 @@ student2.started_courses.append('C#')
 student2.finished_courses.append('Frontend')
 student2.finished_courses.append('Pyhon')
 
-
 lectourer1 = Lecturer('Karl', 'Marx')
 lectourer2 = Lecturer('Nikina', 'Khrushchov')
 lectourer1.coureses_attached.append('Python')
@@ -119,7 +114,6 @@ lectourer1.coureses_attached.append('Frontend')
 
 lectourer2.coureses_attached.append('Web')
 lectourer2.coureses_attached.append('C#')
-
 
 student1.rate_a_lecturer(lectourer1, 'Python', 5)
 student1.rate_a_lecturer(lectourer2, 'Web', 5)
@@ -133,12 +127,10 @@ reviewer2.rate_sudent(student1, 'C#', 10)
 reviewer1.rate_sudent(student1, 'C#', 3)
 reviewer2.rate_sudent(student2, 'Python', 10)
 
-
 reviewer1.rate_sudent(student1, 'Web', 3)
 reviewer2.rate_sudent(student2, 'Frontend', 10)
 reviewer1.rate_sudent(student1, 'Frontend', 3)
 reviewer2.rate_sudent(student2, 'Web', 10)
-
 
 print(student1.grades)
 print(student2.grades)
@@ -159,4 +151,3 @@ print()
 
 middle_grade('Web', student1, student2)
 middle_grade('C#', lectourer1, lectourer2)
-
