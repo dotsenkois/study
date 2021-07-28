@@ -22,7 +22,7 @@ class Student:
         self.total = 0
         self.count = 0
 
-        if '' in self.grades.keys() != False:
+        if self.grades.keys():
             for i in self.grades.values():
                 self.total += sum(i)
                 self.count = len(i)
@@ -30,7 +30,10 @@ class Student:
         else:
             self.tc = 'оценок нет'
         str_started_courses = ', '.join(self.started_courses)
-        str_fin_cour = ', '.join(self.finished_courses)
+        if self.finished_courses:
+            str_fin_cour = ', '.join(self.finished_courses)
+        else:
+            str_fin_cour = 'Студент не окончил ни одного курса'
 
         return 'Имя: {}\nФамилия: {}\nСредняя оценка: {}\nСписок начатых курсов: {}\nЗавершены курсы: {}'.format(self.name, self.surname, self.tc, str_started_courses, str_fin_cour)
 
@@ -46,13 +49,13 @@ class Reviewer(Mentor):
         super().__init__(name, surname)
 
     def rate_sudent(self, student, course, grade):
-        if isinstance(student, Student) and course in student.started_courses:
+        if isinstance(student, Student) and (course in student.started_courses or course in student.finished_courses):
             if course in student.grades:
                 student.grades[course] += [grade]
             else:
                 student.grades[course] = [grade]
         else:
-            print('Ошибка')
+            print('Ошибка.'.format())
 
     def __str__(self):
         return 'Имя: {}\nФамилия: {}\n'.format(self.name, self.surname)
@@ -65,42 +68,95 @@ class Lecturer(Mentor):
     def __str__(self):
         total = 0
         count = 0
-        if self.grades != None:
+        if self.grades:
             for i in self.grades.values():
                 total += sum(i)
                 count = len(i)
             tc = total / count
         else:
-            tc = 'оцено нет'
+            tc = 'оценок нет'
 
         return 'Имя: {}\nФамилия: {}\nСредняя оценка за лекции {}'.format(self.name, self.surname,tc )
 
+def middle_grade(course, *args):
+    total = 0
+    count = 0
+    msg = ''
+
+    for arg in args:
+        if isinstance(arg, Student):
+            msg = 'Средний балл за домашнее задание по курсу {} составляет - {} баллов'
+        else:
+            msg = 'Средний балл за лекции по курсу {} составляет - {} баллов'
+
+        if course in arg.grades:
+            total += sum(arg.grades[course])
+            count += 1
+
+    if count > 0:
+        print(msg.format(course, total/count))
+    return
+
+
 student1 = Student('Iosif', 'Dzhugashvily', 'm')
 student2 = Student('Vladimir', 'Ulianov', 'm')
+
 student1.started_courses.append('Python')
-student2.started_courses.append('web')
-student2.started_courses.append('Python')
-student2.finished_courses.append('Введение в программирование')
-print(f'Курсы студента {student1.started_courses}')
-print(f'Оценки лектора {student1.surname} {student1.grades}')
+student1.started_courses.append('Web')
+student1.finished_courses.append('Frontend')
+student1.finished_courses.append('C#')
+
+student2.started_courses.append('Frontend')
+student2.started_courses.append('C#')
+student2.finished_courses.append('Frontend')
+student2.finished_courses.append('Pyhon')
+
 
 lectourer1 = Lecturer('Karl', 'Marx')
+lectourer2 = Lecturer('Nikina', 'Khrushchov')
 lectourer1.coureses_attached.append('Python')
-print(f'Курсы лектора {lectourer1.coureses_attached}')
+lectourer1.coureses_attached.append('Frontend')
+
+lectourer2.coureses_attached.append('Web')
+lectourer2.coureses_attached.append('C#')
 
 
 student1.rate_a_lecturer(lectourer1, 'Python', 5)
+student1.rate_a_lecturer(lectourer2, 'Web', 5)
 student2.rate_a_lecturer(lectourer1, 'Python', 4)
-student2.rate_a_lecturer(lectourer1, 'web', 4)
-print(f'Оценки лектора {lectourer1.surname} {lectourer1.grades}')
+student2.rate_a_lecturer(lectourer2, 'C#', 4)
+
 reviewer1 = Reviewer('Friedrich', 'Engels')
+reviewer2 = Reviewer('Leonid', 'Brezhnev')
 reviewer1.rate_sudent(student1, 'Python', 3)
+reviewer2.rate_sudent(student1, 'C#', 10)
+reviewer1.rate_sudent(student1, 'C#', 3)
+reviewer2.rate_sudent(student2, 'Python', 10)
+
+
+reviewer1.rate_sudent(student1, 'Web', 3)
+reviewer2.rate_sudent(student2, 'Frontend', 10)
+reviewer1.rate_sudent(student1, 'Frontend', 3)
+reviewer2.rate_sudent(student2, 'Web', 10)
+
+
 print(student1.grades)
+print(student2.grades)
+
 print()
 print(reviewer1)
 print()
 print(lectourer1)
 print()
+print(reviewer2)
+print()
+print(lectourer2)
+print()
 print(student1)
 print()
 print(student2)
+print()
+
+middle_grade('Web', student1, student2)
+middle_grade('C#', lectourer1, lectourer2)
+
