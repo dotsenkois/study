@@ -1,21 +1,22 @@
-def print_rangoli(size):
-    # your code goes here
+#!/bin/python3
 
-    alfabet = 'abcdefghijklmopqrstuvwxyz'
-    for i in range(size):
-        temp= alfabet[size-26-i:size]+ '_'*(size-1-i)
-        print(temp)
-        temp_sum= temp[::-1] + temp[1:]
-        print(temp_sum)
+import math
+import os
+import random
+import re
+import sys
 
-    # for i in range(size):
-    #     temp_str= alfabet[size-1-i:size]
-    #     print(f"temp str {temp_str}")
-    #     for j in range(len(temp_str)):
-    #
-    #
-    #         print(temp_str[-j])
+# Complete the solve function below.
+def solve(s):
+    return s.capitalize()
 
 if __name__ == '__main__':
-    n = int(input())
-    print_rangoli(n)
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = solve(s)
+
+    fptr.write(result + '\n')
+
+    fptr.close()

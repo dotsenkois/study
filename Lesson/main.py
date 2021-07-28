@@ -1,5 +1,0 @@
-class animals:
-
-
-def main():
-
