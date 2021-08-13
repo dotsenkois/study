@@ -133,3 +133,9 @@ Audiocollection/.idea/Audiocollection.iml
 8.«Работа с разными форматами данных»/.idea/8.«Работа с разными форматами данных».iml
 8.«Работа с разными форматами данных»  - xml/.idea/8.«Работа с разными форматами данных»  - xml.iml
 *.iml
+Pars xml/main.py
+Pars xml/Хосты в подсети0.0.csv
+Pars xml/Хосты в подсети10.4.0.0.csv
+Pars xml/Хосты в подсети10.8.0.0.csv
+Pars xml/Хосты в подсети192.10.0.csv
+Pars xml/Хосты в подсетиsetu80.0.csv
